@@ -111,134 +111,154 @@ class HomeScreen extends StatelessWidget {
                   )
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  // HOME Button
-                  GestureDetector(
-                    onTap: () {
-                      // Already on home, do nothing or refresh
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFD9D9D9).withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+              child: // Replace your bottom navigation section with this:
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // HOME Button (current screen - highlighted)
+                      GestureDetector(
+                        onTap: () {
+                          // Already on home, do nothing or refresh
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFD9D9D9).withOpacity(0.4),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.home,
+                                color: Colors.black,
+                                size: 24,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            const Text(
+                              'HOME',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 9,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 4),
-                        Text(
-                          'HOME',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
+                      ),
+                      
+                      // TRANSACTIONS Button
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/accounts');
+                        },
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.receipt_long,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'TRANSACTIONS',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 9,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      
+                      // INVEST Button
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/investment');
+                        },
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.trending_up,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'INVEST',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 9,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      
+                      // CREDIT Button
+                      GestureDetector(
+                        onTap: () {
+                          print('Credit tapped');
+                        },
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.credit_card,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'CREDIT',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 9,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      
+                      // ENVELOPES Button
+                      GestureDetector(
+                        onTap: () {
+                          print('Envelopes tapped');
+                        },
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.mail_outline,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'ENVELOPES',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 9,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  
-                  // TRANSACTIONS Button
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/accounts');
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(width: 30, height: 30),
-                        SizedBox(height: 4),
-                        Text(
-                          'TRANSACTIONS',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  // INVEST Button
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/investment');
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(width: 35, height: 35),
-                        SizedBox(height: 4),
-                        Text(
-                          'INVEST',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  // CREDIT Button
-                  GestureDetector(
-                    onTap: () {
-                      // Navigate to credit screen
-                      print('Credit tapped');
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(width: 35, height: 35),
-                        SizedBox(height: 4),
-                        Text(
-                          'CREDIT',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  // ENVELOPES Button
-                  GestureDetector(
-                    onTap: () {
-                      // Navigate to envelopes screen
-                      print('Envelopes tapped');
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(width: 35, height: 35),
-                        SizedBox(height: 4),
-                        Text(
-                          'ENVELOPES',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
             ),
           ),
           
@@ -353,11 +373,10 @@ class HomeScreen extends StatelessWidget {
                       onTap: () {
                         print('Settings tapped');
                       },
-                      child: Container(
-                        width: 35,
-                        height: 35,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(),
+                      child: const Icon(
+                        Icons.settings,
+                        color: Colors.black,
+                        size: 28,
                       ),
                     ),
                   ),
