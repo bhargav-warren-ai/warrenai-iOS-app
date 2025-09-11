@@ -4,6 +4,7 @@ import 'screens/home_screen_accounts.dart';
 import 'screens/investment_screen.dart';
 import 'screens/salary_screen.dart';
 import 'screens/investment_period_screen.dart';
+import 'screens/credit_screen.dart';
 
 void main() => runApp(const FigmaToCodeApp());
 
@@ -25,6 +26,7 @@ class FigmaToCodeApp extends StatelessWidget {
         '/investment': (context) => InvestmentScreen(),
         '/salary': (context) => SalaryScreen(),
         '/investment-period': (context) => InvestmentPeriodScreen(),
+        '/credit': (context) => CreditScreen(),
       },
     );
   }
