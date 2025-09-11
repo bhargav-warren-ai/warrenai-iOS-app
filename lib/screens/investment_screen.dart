@@ -81,7 +81,8 @@ class InvestmentScreen extends StatelessWidget {
                     title: 'Find a High-Yield Savings Account',
                     description: 'Use Juno to search for a high-yield savings account that\'s right for you.',
                     buttonText: 'Get started',
-                    onTap: () => debugPrint('High-Yield Savings Account tapped'),
+                    // onTap: () => debugPrint('High-Yield Savings Account tapped'),
+                    onTap: () => Navigator.pushNamed(context, '/salary'),
                     icon: Icons.savings,
                   ),
                   
@@ -99,7 +100,7 @@ class InvestmentScreen extends StatelessWidget {
                     title: 'Open Robinhood Account',
                     description: 'You have connected your Robinhood account with Juno.',
                     buttonText: 'Open',
-                    onTap: () => Navigator.pushNamed(context, '/salary'),
+                    onTap: () => debugPrint('Open Robinhood Account tapped'),
                     icon: Icons.trending_up,
                   ),
                   
