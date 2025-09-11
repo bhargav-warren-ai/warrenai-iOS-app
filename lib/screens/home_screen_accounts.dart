@@ -26,12 +26,14 @@ class AccountsScreen extends StatelessWidget {
                     child: Container(
                       width: 40,
                       height: 40,
-                      decoration: const ShapeDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage("https://placehold.co/40x40"),
-                          fit: BoxFit.cover,
-                        ),
-                        shape: OvalBorder(),
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.person,
+                        color: Colors.black,
+                        size: 24,
                       ),
                     ),
                   ),
