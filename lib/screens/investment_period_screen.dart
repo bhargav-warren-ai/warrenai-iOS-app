@@ -66,12 +66,14 @@ class InvestmentPeriodScreen extends StatelessWidget {
                       child: Container(
                         width: 35,
                         height: 35,
-                        decoration: const ShapeDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage("https://placehold.co/35x35"),
-                            fit: BoxFit.cover,
-                          ),
-                          shape: OvalBorder(),
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.person,
+                        color: Colors.black,
+                        size: 24,
                         ),
                       ),
                     ),
