@@ -27,7 +27,7 @@ class AccountsScreen extends StatelessWidget {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: Colors.grey,
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
