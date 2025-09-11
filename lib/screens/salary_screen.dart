@@ -1,366 +1,340 @@
 import 'package:flutter/material.dart';
 
-class SalaryScreen extends StatelessWidget {
+class SalaryScreen extends StatefulWidget {
+  const SalaryScreen({super.key});
+
+  @override
+  State<SalaryScreen> createState() => _SalaryScreenState();
+}
+
+class _SalaryScreenState extends State<SalaryScreen> {
+  final TextEditingController _salaryController = TextEditingController();
+
+  @override
+  void dispose() {
+    _salaryController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          // Header
-          Positioned(
-            left: 16,
-            top: 59,
-            child: Container(
-              width: 343,
-              height: 39,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 113,
-                    top: 4,
-                    child: Text(
-                      'Juno',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        height: 1.40,
-                        letterSpacing: -0.40,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 308,
-                    top: 0,
-                    child: GestureDetector(
-                      onTap: () => print('Settings tapped'),
-                      child: Container(width: 35, height: 35),
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    top: 4,
-                    child: GestureDetector(
-                      onTap: () => print('Profile tapped'),
-                      child: Container(
-                        width: 35,
-                        height: 35,
-                        decoration: ShapeDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage("https://placehold.co/35x35"),
-                            fit: BoxFit.cover,
-                          ),
-                          shape: OvalBorder(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          
-          // Status bar
-          Positioned(
-            left: 0,
-            top: 0,
-            child: Container(
-              width: 375,
-              height: 44,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(),
-            ),
-          ),
-          
-          // Bottom Navigation Bar
-          Positioned(
-            left: 0,
-            top: 734,
-            child: Container(
-              width: 375,
-              height: 78,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x19000000),
-                    blurRadius: 0,
-                    offset: Offset(0, -0.50),
-                    spreadRadius: 0,
-                  )
-                ],
-              ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Header Section
+            Container(
+              width: screenWidth,
+              height: 60,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // HOME Button
+                  // Back Button
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(width: 40, height: 40),
-                        SizedBox(height: 4),
-                        Text(
-                          'HOME',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                      size: 28,
                     ),
                   ),
                   
-                  // TRANSACTIONS Button
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/accounts');
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(width: 30, height: 30),
-                        SizedBox(height: 4),
-                        Text(
-                          'TRANSACTIONS',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                  const Spacer(),
+                  
+                  // App Title
+                  const Text(
+                    'Juno',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.40,
                     ),
                   ),
                   
-                  // INVEST Button
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/investment');
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFD9D9D9).withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'INVEST',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  const Spacer(),
                   
-                  // CREDIT Button
+                  // Settings Icon
                   GestureDetector(
-                    onTap: () {
-                      print('Credit tapped');
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(width: 35, height: 35),
-                        SizedBox(height: 4),
-                        Text(
-                          'CREDIT',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  // ENVELOPES Button
-                  GestureDetector(
-                    onTap: () {
-                      print('Envelopes tapped');
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(width: 35, height: 35),
-                        SizedBox(height: 4),
-                        Text(
-                          'ENVELOPES',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                    onTap: () => debugPrint('Settings tapped'),
+                    child: const Icon(
+                      Icons.settings,
+                      color: Colors.black,
+                      size: 28,
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-          
-          // Ask Juno Input
-          Positioned(
-            left: 16,
-            top: 673,
-            child: GestureDetector(
-              onTap: () {
-                print('Ask Juno tapped');
-              },
-              child: Container(
-                width: 343,
-                height: 40,
-                padding: const EdgeInsets.only(top: 8, left: 12, right: 16, bottom: 8),
-                decoration: ShapeDecoration(
-                  color: const Color(0xFFF5F5F5),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                ),
-                child: Row(
+            
+            const SizedBox(height: 40),
+            
+            // Main Form Section
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(width: 24, height: 24),
-                    SizedBox(width: 12),
-                    Text(
-                      'Ask Juno',
-                      style: TextStyle(
-                        color: const Color(0xFF828282),
-                        fontSize: 16,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        height: 1.50,
+                    // Form Container
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(30),
+                      decoration: ShapeDecoration(
+                        color: const Color(0xFFF8F8F8),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
+                      child: Column(
+                        children: [
+                          // Title
+                          const Text(
+                            'Confirm your salary',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 28,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w700,
+                              height: 1.2,
+                            ),
+                          ),
+                          
+                          const SizedBox(height: 8),
+                          
+                          // Subtitle
+                          const Text(
+                            'This helps us personalize your investment recommendations',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF666666),
+                              fontSize: 16,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                              height: 1.3,
+                            ),
+                          ),
+                          
+                          const SizedBox(height: 30),
+                          
+                          // Input Field
+                          TextField(
+                            controller: _salaryController,
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: 'Enter your annual salary',
+                              hintStyle: const TextStyle(
+                                color: Color(0xFF999999),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              prefixIcon: const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                child: Text(
+                                  '\$',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                              prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(color: Color(0xFF0088FF), width: 2),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            ),
+                          ),
+                          
+                          const SizedBox(height: 30),
+                          
+                          // Confirm Button
+                          SizedBox(
+                            width: double.infinity,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (_salaryController.text.isNotEmpty) {
+                                  Navigator.pushNamed(context, '/investment-period');
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Please enter your salary'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF0088FF),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                elevation: 0,
+                              ),
+                              child: const Text(
+                                'Confirm',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: 'SF Pro',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 40),
+                    
+                    // Security Note
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.lock,
+                          color: Color(0xFF999999),
+                          size: 16,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Your information is secure and encrypted',
+                          style: TextStyle(
+                            color: Color(0xFF999999),
+                            fontSize: 14,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
             ),
-          ),
-          
-          // Main Form Container
-          Positioned(
-            left: 16,
-            top: 293,
-            child: Container(
-              width: 343,
-              height: 225,
-              decoration: ShapeDecoration(
-                color: const Color(0xFFD9D9D9),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              ),
-              child: Stack(
-                children: [
-                  // Title
-                  Positioned(
-                    left: 27,
-                    top: 25,
-                    child: SizedBox(
-                      width: 289,
-                      height: 45,
-                      child: Text(
-                        'Confirm your salary',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 28,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1.40,
-                        ),
-                      ),
-                    ),
-                  ),
-                  
-                  // Input Field
-                  Positioned(
-                    left: 36,
-                    top: 89,
-                    child: GestureDetector(
-                      onTap: () {
-                        print('Edit salary tapped');
-                        // Here you could show a text input dialog or navigate to an input screen
-                      },
-                      child: Container(
-                        width: 272,
-                        height: 48,
-                        decoration: ShapeDecoration(
-                          color: const Color(0xFFF5F5F5),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 10, top: 12),
-                          child: Text(
-                            'Edit Salary',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w300,
-                              height: 1.40,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  
-                  // Confirm Button
-                  Positioned(
-                    left: 28,
-                    top: 172,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Navigate to investment period screen
-                        Navigator.pushNamed(context, '/investment-period');
-                      },
-                      child: Container(
-                        width: 288,
-                        height: 44,
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                        decoration: ShapeDecoration(
-                          color: const Color(0xFF0088FF),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(1000),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Confirm',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontFamily: 'SF Pro',
-                              fontWeight: FontWeight.w700,
-                              height: 1.33,
-                              letterSpacing: -0.23,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+            
+            // Bottom Navigation Bar
+            Container(
+              width: screenWidth,
+              height: 90,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x19000000),
+                    blurRadius: 8,
+                    offset: Offset(0, -2),
+                    spreadRadius: 0,
+                  )
                 ],
               ),
+              child: SafeArea(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // HOME Button
+                    _buildNavItem(
+                      Icons.home,
+                      'HOME',
+                      false,
+                      () => Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false),
+                    ),
+                    
+                    // TRANSACTIONS Button
+                    _buildNavItem(
+                      Icons.receipt_long,
+                      'TRANSACTIONS',
+                      false,
+                      () => Navigator.pushNamed(context, '/accounts'),
+                    ),
+                    
+                    // INVEST Button
+                    _buildNavItem(
+                      Icons.trending_up,
+                      'INVEST',
+                      true,
+                      () => Navigator.pushNamed(context, '/investment'),
+                    ),
+                    
+                    // CREDIT Button
+                    _buildNavItem(
+                      Icons.credit_card,
+                      'CREDIT',
+                      false,
+                      () => debugPrint('Credit tapped'),
+                    ),
+                    
+                    // ENVELOPES Button
+                    _buildNavItem(
+                      Icons.mail_outline,
+                      'ENVELOPES',
+                      false,
+                      () => debugPrint('Envelopes tapped'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: isSelected
+                ? BoxDecoration(
+                    color: const Color(0xFFD9D9D9).withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(12),
+                  )
+                : null,
+            child: Icon(
+              icon,
+              color: Colors.black,
+              size: 26,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: label.length > 6 ? 10 : 12,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],

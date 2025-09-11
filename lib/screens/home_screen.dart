@@ -1,89 +1,192 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    // Get screen dimensions
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
+    
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          // Recent Transactions (semi-transparent overlay)
-          Positioned(
-            left: 16,
-            top: 487,
-            child: Opacity(
-              opacity: 0.20,
-              child: Container(
-                width: 343,
-                height: 290,
-                child: Stack(
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Header Section
+            Container(
+              width: screenWidth,
+              height: 60,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  // Profile Image
+                  GestureDetector(
+                    onTap: () => print('Profile tapped'),
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: const ShapeDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage("https://placehold.co/40x40"),
+                          fit: BoxFit.cover,
+                        ),
+                        shape: OvalBorder(),
+                      ),
+                    ),
+                  ),
+                  
+                  const Spacer(),
+                  
+                  // App Title
+                  const Text(
+                    'Juno',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.40,
+                    ),
+                  ),
+                  
+                  const Spacer(),
+                  
+                  // Settings Icon
+                  GestureDetector(
+                    onTap: () => print('Settings tapped'),
+                    child: const Icon(
+                      Icons.settings,
+                      color: Colors.black,
+                      size: 28,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            
+            // Tab Buttons (Overview/Accounts)
+            Container(
+              width: screenWidth,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  // Overview button (selected)
+                  Container(
+                    height: 35,
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    decoration: ShapeDecoration(
+                      color: Colors.black.withOpacity(0.90),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Overview',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                  
+                  const SizedBox(width: 15),
+                  
+                  // Accounts button
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/accounts'),
+                    child: Container(
+                      height: 35,
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                      decoration: ShapeDecoration(
+                        color: const Color(0xFFF6F6F6),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Accounts',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            
+            // Net Worth Chart
+            Container(
+              width: screenWidth - 32,
+              height: 320,
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(width: 1, color: Color(0xFFDFDFDF)),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Transaction container
-                    Positioned(
-                      left: 0,
-                      top: 0,
-                      child: Container(
-                        width: 343,
-                        height: 290,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 1,
-                              color: const Color(0xFFDFDFDF),
-                            ),
-                            borderRadius: BorderRadius.circular(8),
+                    // Chart Header
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Net Worth',
+                          style: TextStyle(
+                            color: Color(0xFF959595),
+                            fontSize: 16,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                      ),
-                    ),
-                    // Transaction items would go here...
-                    // (I'll include a few for example)
-                    Positioned(
-                      left: 12,
-                      top: 54,
-                      child: Container(
-                        width: 320,
-                        height: 45,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 1,
-                              color: const Color(0xFFD9D9D9),
-                            ),
-                            borderRadius: BorderRadius.circular(8),
+                        const Text(
+                          '\$48,000',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                    // Transaction details
-                    Positioned(
-                      left: 68,
-                      top: 63,
-                      child: Text(
-                        'Costco',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1.40,
+                    
+                    const SizedBox(height: 20),
+                    
+                    // Chart Area (placeholder)
+                    Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 252,
-                      top: 63,
-                      child: Text(
-                        '-\$145.00',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: const Color(0xFFFF0000),
-                          fontSize: 15,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1.40,
+                        child: const Center(
+                          child: Text(
+                            'Chart Area',
+                            style: TextStyle(
+                              color: Color(0xFF828282),
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -91,451 +194,310 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          
-          // Bottom Navigation Bar
-          Positioned(
-            left: 0,
-            top: 734,
-            child: Container(
-              width: 375,
-              height: 78,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x19000000),
-                    blurRadius: 0,
-                    offset: Offset(0, -0.50),
-                    spreadRadius: 0,
-                  )
-                ],
+            
+            // Recent Transactions Section
+            Container(
+              width: screenWidth,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: const Text(
+                'Recent Transactions',
+                style: TextStyle(
+                  color: Color(0xFF959595),
+                  fontSize: 16,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-              child: // Replace your bottom navigation section with this:
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+            ),
+            
+            const SizedBox(height: 10),
+            
+            // Transactions List
+            Expanded(
+              child: Container(
+                width: screenWidth - 32,
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.all(16),
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(width: 1, color: Color(0xFFDFDFDF)),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: ListView(
+                  children: [
+                    // Transaction Item 1
+                    _buildTransactionItem(
+                      'Costco',
+                      'Groceries',
+                      'July 20',
+                      '-\$145.00',
+                      Colors.red,
+                    ),
+                    const SizedBox(height: 12),
+                    
+                    // Transaction Item 2
+                    _buildTransactionItem(
+                      'Fuel',
+                      'Transportation',
+                      'July 20',
+                      '-\$47.00',
+                      Colors.red,
+                    ),
+                    const SizedBox(height: 12),
+                    
+                    // Transaction Item 3
+                    _buildTransactionItem(
+                      'Zelle from Kyle',
+                      'Transfer',
+                      'July 20',
+                      '+\$250.00',
+                      Colors.green,
+                    ),
+                    const SizedBox(height: 12),
+                    
+                    // Transaction Item 4
+                    _buildTransactionItem(
+                      'Netflix Premium',
+                      'Entertainment',
+                      'July 20',
+                      '-\$15.99',
+                      Colors.red,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            
+            // Ask Juno Input
+            Container(
+              width: screenWidth - 32,
+              height: 50,
+              margin: const EdgeInsets.all(16),
+              child: GestureDetector(
+                onTap: () => print('Ask Juno tapped'),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: ShapeDecoration(
+                    color: const Color(0xFFF5F5F5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Row(
                     children: [
-                      // HOME Button (current screen - highlighted)
-                      GestureDetector(
-                        onTap: () {
-                          // Already on home, do nothing or refresh
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFD9D9D9).withOpacity(0.4),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Icon(
-                                Icons.home,
-                                color: Colors.black,
-                                size: 24,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            const Text(
-                              'HOME',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 9,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
+                      Icon(
+                        Icons.search,
+                        color: Color(0xFF828282),
+                        size: 24,
                       ),
-                      
-                      // TRANSACTIONS Button
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/accounts');
-                        },
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.receipt_long,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'TRANSACTIONS',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 9,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      
-                      // INVEST Button
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/investment');
-                        },
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.trending_up,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'INVEST',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 9,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      
-                      // CREDIT Button
-                      GestureDetector(
-                        onTap: () {
-                          print('Credit tapped');
-                        },
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.credit_card,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'CREDIT',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 9,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      
-                      // ENVELOPES Button
-                      GestureDetector(
-                        onTap: () {
-                          print('Envelopes tapped');
-                        },
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.mail_outline,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'ENVELOPES',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 9,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
+                      SizedBox(width: 12),
+                      Text(
+                        'Ask Juno',
+                        style: TextStyle(
+                          color: Color(0xFF828282),
+                          fontSize: 18,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],
                   ),
+                ),
+              ),
+            ),
+            
+            // Bottom Navigation Bar
+            Container(
+              width: screenWidth,
+              height: 90,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x19000000),
+                    blurRadius: 8,
+                    offset: Offset(0, -2),
+                    spreadRadius: 0,
+                  )
+                ],
+              ),
+              child: SafeArea(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // HOME Button (current screen - highlighted)
+                    _buildNavItem(
+                      Icons.home,
+                      'HOME',
+                      true,
+                      () {},
+                    ),
+                    
+                    // TRANSACTIONS Button
+                    _buildNavItem(
+                      Icons.receipt_long,
+                      'TRANSACTIONS',
+                      false,
+                      () => Navigator.pushNamed(context, '/accounts'),
+                    ),
+                    
+                    // INVEST Button
+                    _buildNavItem(
+                      Icons.trending_up,
+                      'INVEST',
+                      false,
+                      () => Navigator.pushNamed(context, '/investment'),
+                    ),
+                    
+                    // CREDIT Button
+                    _buildNavItem(
+                      Icons.credit_card,
+                      'CREDIT',
+                      false,
+                      () => print('Credit tapped'),
+                    ),
+                    
+                    // ENVELOPES Button
+                    _buildNavItem(
+                      Icons.mail_outline,
+                      'ENVELOPES',
+                      false,
+                      () => print('Envelopes tapped'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTransactionItem(
+    String title,
+    String category,
+    String date,
+    String amount,
+    Color amountColor,
+  ) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: ShapeDecoration(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(width: 1, color: Color(0xFFD9D9D9)),
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      child: Row(
+        children: [
+          // Transaction Icon
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.store,
+              color: Color(0xFF828282),
+              size: 20,
             ),
           ),
           
-          // Status bar
-          Positioned(
-            left: 0,
-            top: 0,
-            child: Container(
-              width: 375,
-              height: 44,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(),
-            ),
-          ),
+          const SizedBox(width: 12),
           
-          // Tab buttons (Overview/Accounts)
-          Positioned(
-            left: 25,
-            top: 121,
-            child: Row(
+          // Transaction Details
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Overview button (selected)
-                Container(
-                  width: 100,
-                  height: 30,
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                  decoration: ShapeDecoration(
-                    color: Colors.black.withOpacity(0.90),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Overview',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500,
-                        height: 1.40,
-                      ),
-                    ),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(width: 10),
-                // Accounts button
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/accounts');
-                  },
-                  child: Container(
-                    width: 100,
-                    height: 30,
-                    decoration: ShapeDecoration(
-                      color: const Color(0xFFF6F6F6),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Accounts',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
-                          height: 1.40,
-                        ),
-                      ),
-                    ),
+                const SizedBox(height: 2),
+                Text(
+                  category,
+                  style: const TextStyle(
+                    color: Color(0xFFD9D9D9),
+                    fontSize: 12,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
           
-          // Header with profile and settings
-          Positioned(
-            left: 16,
-            top: 59,
-            child: Container(
-              width: 343,
-              height: 39,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 113,
-                    top: 4,
-                    child: SizedBox(
-                      width: 118,
-                      height: 28,
-                      child: Text(
-                        'Juno',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
-                          height: 1.40,
-                          letterSpacing: -0.40,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 308,
-                    top: 0,
-                    child: GestureDetector(
-                      onTap: () {
-                        print('Settings tapped');
-                      },
-                      child: const Icon(
-                        Icons.settings,
-                        color: Colors.black,
-                        size: 28,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    top: 4,
-                    child: GestureDetector(
-                      onTap: () {
-                        print('Profile tapped');
-                      },
-                      child: Container(
-                        width: 35,
-                        height: 35,
-                        decoration: ShapeDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage("https://placehold.co/35x35"),
-                            fit: BoxFit.cover,
-                          ),
-                          shape: OvalBorder(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          
-          // Net Worth Chart
-          Positioned(
-            left: 16,
-            top: 198,
-            child: Container(
-              width: 343,
-              height: 282,
-              clipBehavior: Clip.antiAlias,
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    width: 1,
-                    color: const Color(0xFFDFDFDF),
-                  ),
-                  borderRadius: BorderRadius.circular(8),
+          // Amount and Date
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                amount,
+                style: TextStyle(
+                  color: amountColor,
+                  fontSize: 16,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              child: Stack(
-                children: [
-                  // Chart labels and data points
-                  Positioned(
-                    left: 16,
-                    top: 64,
-                    child: Text(
-                      '\$50K',
-                      style: TextStyle(
-                        color: const Color(0xFF828282),
-                        fontSize: 10,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        height: 1.40,
-                      ),
-                    ),
-                  ),
-                  // More chart elements...
-                  Positioned(
-                    left: 16,
-                    top: 16,
-                    child: Text(
-                      'Net Worth',
-                      style: TextStyle(
-                        color: const Color(0xFF959595),
-                        fontSize: 14,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w700,
-                        height: 1.40,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 244,
-                    top: 16,
-                    child: Text(
-                      '\$48,000',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w700,
-                        height: 1.40,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          
-          // Recent Transactions Label
-          Positioned(
-            left: 32,
-            top: 503,
-            child: Text(
-              'Recent Transactions',
-              style: TextStyle(
-                color: const Color(0xFF959595),
-                fontSize: 14,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w700,
-                height: 1.40,
-              ),
-            ),
-          ),
-          
-          // Ask Juno Input
-          Positioned(
-            left: 16,
-            top: 673,
-            child: GestureDetector(
-              onTap: () {
-                print('Ask Juno tapped');
-                // Could navigate to a chat screen
-              },
-              child: Container(
-                width: 343,
-                height: 40,
-                padding: const EdgeInsets.only(top: 8, left: 12, right: 16, bottom: 8),
-                decoration: ShapeDecoration(
-                  color: const Color(0xFFF5F5F5),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 24,
-                      height: 24,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(),
-                    ),
-                    SizedBox(width: 12),
-                    SizedBox(
-                      width: 279,
-                      child: Text(
-                        'Ask Juno',
-                        style: TextStyle(
-                          color: const Color(0xFF828282),
-                          fontSize: 16,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                          height: 1.50,
-                        ),
-                      ),
-                    ),
-                  ],
+              const SizedBox(height: 2),
+              Text(
+                date,
+                style: const TextStyle(
+                  color: Color(0xFFD9D9D9),
+                  fontSize: 12,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w500,
                 ),
               ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: isSelected
+                ? BoxDecoration(
+                    color: const Color(0xFFD9D9D9).withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(12),
+                  )
+                : null,
+            child: Icon(
+              icon,
+              color: Colors.black,
+              size: 26,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: label.length > 6 ? 10 : 12,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
