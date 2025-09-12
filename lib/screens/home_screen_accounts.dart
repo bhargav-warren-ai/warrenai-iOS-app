@@ -258,7 +258,7 @@ class AccountsScreen extends StatelessWidget {
                       Icons.credit_card,
                       'CREDIT',
                       false,
-                      () => print('Credit tapped'),
+                      () => Navigator.pushNamed(context, '/credit'),
                     ),
                     
                     // ENVELOPES Button

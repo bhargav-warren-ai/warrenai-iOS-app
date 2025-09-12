@@ -296,7 +296,7 @@ class InvestmentPeriodScreen extends StatelessWidget {
                   // CREDIT Button
                   GestureDetector(
                     onTap: () {
-                      debugPrint('Credit tapped');
+                      () => Navigator.pushNamed(context, '/credit');
                     },
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
