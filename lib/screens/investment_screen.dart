@@ -202,7 +202,7 @@ class InvestmentScreen extends StatelessWidget {
                       Icons.credit_card,
                       'CREDIT',
                       false,
-                      () => debugPrint('Credit tapped'),
+                      () => Navigator.pushNamed(context, '/credit'),
                     ),
                     
                     // ENVELOPES Button
