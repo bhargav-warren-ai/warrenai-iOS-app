@@ -186,7 +186,7 @@ class InvestmentScreen extends StatelessWidget {
                       Icons.receipt_long,
                       'TRANSACTIONS',
                       false,
-                      () => Navigator.pushNamed(context, '/accounts'),
+                      () => Navigator.pushNamed(context, '/transactions'),
                     ),
                     
                     // INVEST Button (current screen)

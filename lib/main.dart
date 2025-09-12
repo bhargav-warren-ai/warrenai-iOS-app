@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:warren_starter/screens/transactions_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/home_screen_accounts.dart';
 import 'screens/investment_screen.dart';
@@ -27,6 +28,7 @@ class FigmaToCodeApp extends StatelessWidget {
         '/salary': (context) => SalaryScreen(),
         '/investment-period': (context) => InvestmentPeriodScreen(),
         '/credit': (context) => CreditScreen(),
+        '/transactions': (context) => TransactionsScreen(),
       },
     );
   }
