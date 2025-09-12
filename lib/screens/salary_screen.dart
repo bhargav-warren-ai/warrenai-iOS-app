@@ -270,7 +270,7 @@ class _SalaryScreenState extends State<SalaryScreen> {
                       Icons.receipt_long,
                       'TRANSACTIONS',
                       false,
-                      () => Navigator.pushNamed(context, '/accounts'),
+                      () => Navigator.pushNamed(context, '/transactions'),
                     ),
                     
                     // INVEST Button
