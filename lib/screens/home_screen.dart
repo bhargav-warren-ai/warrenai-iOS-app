@@ -8,7 +8,7 @@ class HomeScreen extends StatelessWidget {
     // Get screen dimensions
     final screenSize = MediaQuery.of(context).size;
     final screenWidth = screenSize.width;
-    final screenHeight = screenSize.height;
+    // final screenHeight = screenSize.height;
     
     return Scaffold(
       backgroundColor: Colors.white,
@@ -366,7 +366,7 @@ class HomeScreen extends StatelessWidget {
                       Icons.mail_outline,
                       'ENVELOPES',
                       false,
-                      () => print('Envelopes tapped'),
+                      () => Navigator.pushNamed(context, '/envelopes'),
                     ),
                   ],
                 ),

@@ -319,7 +319,7 @@ class InvestmentPeriodScreen extends StatelessWidget {
                   // ENVELOPES Button
                   GestureDetector(
                     onTap: () {
-                      debugPrint('Envelopes tapped');
+                      Navigator.pushNamed(context, '/envelopes');
                     },
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TransactionsScreen extends StatelessWidget {
-  const TransactionsScreen({super.key});
+class EnvelopesScreen extends StatelessWidget {
+  const EnvelopesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class TransactionsScreen extends StatelessWidget {
                   const SizedBox(height: 40),
                   
                   const Text(
-                    'Transactions',
+                    'Envelopes',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
@@ -94,7 +94,7 @@ class TransactionsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Text(
-                      'Transaction list will go here',
+                      'Envelopes will go here',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
@@ -177,8 +177,8 @@ class TransactionsScreen extends StatelessWidget {
                     _buildNavItem(
                       Icons.receipt_long,
                       'TRANSACTIONS',
-                      true,
-                      () {},
+                      false,
+                      () => Navigator.pushNamed(context, '/transactions'),
                     ),
                     
                     // INVEST Button
@@ -201,8 +201,8 @@ class TransactionsScreen extends StatelessWidget {
                     _buildNavItem(
                       Icons.mail_outline,
                       'ENVELOPES',
-                      false,
-                      () => Navigator.pushNamed(context, '/envelopes'),
+                      true,
+                      () {},
                     ),
                   ],
                 ),

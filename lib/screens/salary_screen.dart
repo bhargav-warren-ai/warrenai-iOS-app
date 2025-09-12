@@ -294,7 +294,7 @@ class _SalaryScreenState extends State<SalaryScreen> {
                       Icons.mail_outline,
                       'ENVELOPES',
                       false,
-                      () => debugPrint('Envelopes tapped'),
+                      () => Navigator.pushNamed(context, '/envelopes'),
                     ),
                   ],
                 ),
