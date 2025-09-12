@@ -266,7 +266,7 @@ class AccountsScreen extends StatelessWidget {
                       Icons.mail_outline,
                       'ENVELOPES',
                       false,
-                      () => print('Envelopes tapped'),
+                      () => Navigator.pushNamed(context, '/envelopes'),
                     ),
                   ],
                 ),

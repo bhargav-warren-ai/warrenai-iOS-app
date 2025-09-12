@@ -210,7 +210,7 @@ class InvestmentScreen extends StatelessWidget {
                       Icons.mail_outline,
                       'ENVELOPES',
                       false,
-                      () => debugPrint('Envelopes tapped'),
+                      () => Navigator.pushNamed(context, '/envelopes'),
                     ),
                   ],
                 ),
