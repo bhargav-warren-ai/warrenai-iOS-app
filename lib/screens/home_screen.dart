@@ -1,5 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 
+//this SimpleLinePainter class only exists for the NetWorthChart widget, will be removed once backend is integrated
+class SimpleLinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = const Color(0xFF2D6EFF)
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+
+    final path = Path();
+    path.moveTo(0, size.height * 0.7);
+    path.lineTo(size.width * 0.2, size.height * 0.6);
+    path.lineTo(size.width * 0.4, size.height * 0.3);
+    path.lineTo(size.width * 0.6, size.height * 0.4);
+    path.lineTo(size.width * 0.8, size.height * 0.2);
+    path.lineTo(size.width, size.height * 0.1);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -175,22 +199,7 @@ class HomeScreen extends StatelessWidget {
                     
                     // Chart Area (placeholder)
                     Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'Chart Area',
-                            style: TextStyle(
-                              color: Color(0xFF828282),
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: _buildNetWorthChart(),
                     ),
                   ],
                 ),
@@ -378,6 +387,20 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildNetWorthChart() {
+  return Container(
+    width: double.infinity,
+    height: double.infinity,
+    decoration: BoxDecoration(
+      color: Colors.grey.withOpacity(0.1),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: CustomPaint(
+      painter: SimpleLinePainter(),
+    ),
+  );
+}
+
   Widget _buildTransactionItem(
     String title,
     String category,
@@ -482,7 +505,7 @@ class HomeScreen extends StatelessWidget {
             height: 50,
             decoration: isSelected
                 ? BoxDecoration(
-                    color: const Color(0xFFD9D9D9).withOpacity(0.4),
+                    color: const Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(12),
                   )
                 : null,
