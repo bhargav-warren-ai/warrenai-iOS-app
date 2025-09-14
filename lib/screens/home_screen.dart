@@ -24,6 +24,155 @@ class SimpleLinePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
+
+// ADD THE NEW PAINTER CLASSES HERE: This is to make the networth graph interactive
+class InteractiveLinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Background gradient
+    final gradientPaint = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          const Color(0xFF2D6EFF).withOpacity(0.1),
+          const Color(0xFF2D6EFF).withOpacity(0.05),
+        ],
+      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
+
+    final linePaint = Paint()
+      ..color = const Color(0xFF2D6EFF)
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+
+    // Create the line path
+    final path = Path();
+    final fillPath = Path();
+    
+    path.moveTo(0, size.height * 0.7);
+    fillPath.moveTo(0, size.height);
+    fillPath.lineTo(0, size.height * 0.7);
+    
+    path.lineTo(size.width * 0.2, size.height * 0.6);
+    fillPath.lineTo(size.width * 0.2, size.height * 0.6);
+    
+    path.lineTo(size.width * 0.4, size.height * 0.3);
+    fillPath.lineTo(size.width * 0.4, size.height * 0.3);
+    
+    path.lineTo(size.width * 0.6, size.height * 0.4);
+    fillPath.lineTo(size.width * 0.6, size.height * 0.4);
+    
+    path.lineTo(size.width * 0.8, size.height * 0.2);
+    fillPath.lineTo(size.width * 0.8, size.height * 0.2);
+    
+    path.lineTo(size.width, size.height * 0.1);
+    fillPath.lineTo(size.width, size.height * 0.1);
+    
+    fillPath.lineTo(size.width, size.height);
+    fillPath.close();
+
+    // Draw gradient fill
+    canvas.drawPath(fillPath, gradientPaint);
+    
+    // Draw line
+    canvas.drawPath(path, linePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class DataPointsPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final pointPaint = Paint()
+      ..color = const Color(0xFF2D6EFF)
+      ..style = PaintingStyle.fill;
+
+    final whiteBorderPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+
+    // Data points positions
+    final points = [
+      Offset(0, size.height * 0.7),
+      Offset(size.width * 0.2, size.height * 0.6),
+      Offset(size.width * 0.4, size.height * 0.3),
+      Offset(size.width * 0.6, size.height * 0.4),
+      Offset(size.width * 0.8, size.height * 0.2),
+      Offset(size.width, size.height * 0.1),
+    ];
+
+    for (final point in points) {
+      // Draw white border
+      canvas.drawCircle(point, 6, whiteBorderPaint);
+      // Draw blue dot
+      canvas.drawCircle(point, 4, pointPaint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class DetailedChartPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Grid lines
+    final gridPaint = Paint()
+      ..color = Colors.grey.withOpacity(0.2)
+      ..strokeWidth = 1;
+
+    // Draw horizontal grid lines
+    for (int i = 0; i <= 4; i++) {
+      final y = (size.height / 4) * i;
+      canvas.drawLine(
+        Offset(0, y),
+        Offset(size.width, y),
+        gridPaint,
+      );
+    }
+
+    // Main chart line
+    final linePaint = Paint()
+      ..color = const Color(0xFF2D6EFF)
+      ..strokeWidth = 4
+      ..style = PaintingStyle.stroke;
+
+    final path = Path();
+    path.moveTo(size.width * 0.1, size.height * 0.8);
+    path.lineTo(size.width * 0.25, size.height * 0.7);
+    path.lineTo(size.width * 0.4, size.height * 0.4);
+    path.lineTo(size.width * 0.55, size.height * 0.5);
+    path.lineTo(size.width * 0.7, size.height * 0.25);
+    path.lineTo(size.width * 0.85, size.height * 0.15);
+
+    canvas.drawPath(path, linePaint);
+
+    // Data points
+    final pointPaint = Paint()
+      ..color = const Color(0xFF2D6EFF)
+      ..style = PaintingStyle.fill;
+
+    final points = [
+      Offset(size.width * 0.1, size.height * 0.8),
+      Offset(size.width * 0.25, size.height * 0.7),
+      Offset(size.width * 0.4, size.height * 0.4),
+      Offset(size.width * 0.55, size.height * 0.5),
+      Offset(size.width * 0.7, size.height * 0.25),
+      Offset(size.width * 0.85, size.height * 0.15),
+    ];
+
+    for (final point in points) {
+      canvas.drawCircle(point, 8, Paint()..color = Colors.white);
+      canvas.drawCircle(point, 6, pointPaint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -388,17 +537,126 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildNetWorthChart() {
-  return Container(
-    width: double.infinity,
-    height: double.infinity,
-    decoration: BoxDecoration(
-      color: Colors.grey.withOpacity(0.1),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: CustomPaint(
-      painter: SimpleLinePainter(),
-    ),
-  );
+return LineChart(
+      LineChartData(
+        gridData: FlGridData(
+          show: true,
+          drawVerticalLine: false,
+          horizontalInterval: 5000,
+          getDrawingHorizontalLine: (value) {
+            return FlLine(
+              color: Colors.grey.withOpacity(0.2),
+              strokeWidth: 1,
+            );
+          },
+        ),
+        titlesData: FlTitlesData(
+          leftTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              interval: 10000,
+              getTitlesWidget: (value, meta) {
+                return Text(
+                  '\$${(value / 1000).toInt()}K',
+                  style: const TextStyle(
+                    color: Color(0xFF828282),
+                    fontSize: 10,
+                    fontFamily: 'Inter',
+                  ),
+                );
+              },
+              reservedSize: 40,
+            ),
+          ),
+          bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              interval: 1,
+              getTitlesWidget: (value, meta) {
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+                if (value.toInt() >= 0 && value.toInt() < months.length) {
+                  return Text(
+                    months[value.toInt()],
+                    style: const TextStyle(
+                      color: Color(0xFF828282),
+                      fontSize: 10,
+                      fontFamily: 'Inter',
+                    ),
+                  );
+                }
+                return const Text('');
+              },
+              reservedSize: 30,
+            ),
+          ),
+          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        ),
+        borderData: FlBorderData(show: false),
+        minX: 0,
+        maxX: 5,
+        minY: 30000,
+        maxY: 50000,
+        lineBarsData: [
+          LineChartBarData(
+            spots: const [
+              FlSpot(0, 35000),  // Jan: $35K
+              FlSpot(1, 38000),  // Feb: $38K
+              FlSpot(2, 42000),  // Mar: $42K
+              FlSpot(3, 39000),  // Apr: $39K (small dip)
+              FlSpot(4, 45000),  // May: $45K
+              FlSpot(5, 48000),  // Jun: $48K (current)
+            ],
+            isCurved: true,
+            curveSmoothness: 0.3,
+            color: const Color(0xFF2D6EFF),
+            barWidth: 3,
+            isStrokeCapRound: true,
+            dotData: FlDotData(
+              show: true,
+              getDotPainter: (spot, percent, barData, index) {
+                return FlDotCirclePainter(
+                  radius: 4,
+                  color: const Color(0xFF2D6EFF),
+                  strokeWidth: 2,
+                  strokeColor: Colors.white,
+                );
+              },
+            ),
+            belowBarData: BarAreaData(
+              show: true,
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  const Color(0xFF2D6EFF).withOpacity(0.3),
+                  const Color(0xFF2D6EFF).withOpacity(0.05),
+                ],
+              ),
+            ),
+          ),
+        ],
+        lineTouchData: LineTouchData(
+          touchTooltipData: LineTouchTooltipData(
+            // tooltipBgColor: Colors.black87,
+            tooltipRoundedRadius: 8,
+            getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+              return touchedBarSpots.map((barSpot) {
+                return LineTooltipItem(
+                  '\$${(barSpot.y / 1000).toInt()}K',
+                  const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                );
+              }).toList();
+            },
+          ),
+          handleBuiltInTouches: true,
+        ),
+      ),
+    );
 }
 
   Widget _buildTransactionItem(
