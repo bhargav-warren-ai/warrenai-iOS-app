@@ -241,8 +241,8 @@ class AccountsScreen extends StatelessWidget {
                     _buildNavItem(
                       Icons.receipt_long,
                       'TRANSACTIONS',
-                      true,
-                      () {},
+                      false,
+                      () => Navigator.pushNamed(context, '/transactions'),
                     ),
                     
                     // INVEST Button
